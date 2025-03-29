@@ -5,14 +5,30 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const { Pool } = require("pg");
 //
+const path = require("path");
 
 
 dotenv.config();
 const app = express();
+// ✅ 配置 CORS，只允许你的前端地址
+const corsOptions = {
+  origin: "https://sharetea-zgyh.onrender.com",
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  credentials: true
+};
 app.use(cors());
 app.use(express.json());
 const authRoutes = require("./routes/authRoutes");
 app.use("/api/auth", authRoutes);
+
+// 提供静态文件
+app.use(express.static(path.join(__dirname, 'build')));
+
+// 对于所有未知的路由，返回前端的 index.html
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+
 
 
 const pool = new Pool({
