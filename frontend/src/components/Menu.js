@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:5050";;
 const Menu = ({ user }) => {
   const [menu, setMenu] = useState([]);
   const [cart, setCart] = useState([]);
@@ -36,8 +36,8 @@ const Menu = ({ user }) => {
   const fetchMenu = async (type) => {
     try {
       const res = type === "All"
-        ? await axios.get("http://localhost:5050/api/menu")
-        : await axios.get(`http://localhost:5050/api/menu/${encodeURIComponent(type)}`);
+      ? await axios.get(`${apiUrl}/api/menu`)
+      : await axios.get(`${apiUrl}/api/menu/${encodeURIComponent(type)}`);
       setMenu(res.data);
       setSelectedCategory(type);
     } catch (err) {
