@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import axios from 'axios';
+
+
 
 // 页面组件导入
 import Login from "./components/Login";
@@ -26,10 +29,10 @@ import ThankYouPage from "./components/ThankYouPage";
 import OrderHistory from "./components/OrderHistory";
 import WeatherPage from "./components/WeatherPage";
 
-
 // 从 .env 读取 Google Client ID
 const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
-
+// 设置 Axios 的默认 baseURL
+axios.defaults.baseURL = 'https://project3-ddoc.onrender.com';
 const App = () => {
   const { t, i18n } = useTranslation();
   const [user, setUser] = useState(null);
@@ -138,7 +141,6 @@ const App = () => {
           <Route path="/thankyou" element={<ThankYouPage />} />
           <Route path="/order-history" element={<OrderHistory />} />
           <Route path="/weather" element={<WeatherPage />} />
-
         </Routes>
       </div>
     </GoogleOAuthProvider>
