@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-
+const apiUrl =
+  process.env.REACT_APP_API_URL || "http://localhost:5050";
 const OrderHistory = () => {
   const [transactions, setTransactions] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -11,7 +12,7 @@ const OrderHistory = () => {
 
   const fetchTransactions = async () => {
     try {
-      const res = await axios.get("http://localhost:5050/api/transactions");
+      const res = await axios.get(`${apiUrl}/api/transactions`);
       // 按 id 倒序排列
       const sorted = res.data.sort((a, b) => b.id - a.id);
       setTransactions(sorted);

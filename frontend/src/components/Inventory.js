@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+const apiUrl =
+  process.env.REACT_APP_API_URL || "http://localhost:5050";
 const Inventory = () => {
   const [itemId, setItemId] = useState("");
   const [quantity, setQuantity] = useState("");
@@ -14,7 +15,7 @@ const Inventory = () => {
 
   const viewInventory = async () => {
     try {
-      const res = await axios.get("http://localhost:5050/api/inventory");
+      const res = await axios.get(`${apiUrl}/api/inventory`);
       setInventoryList(res.data);
     } catch (err) {
       alert("❌ Failed to fetch inventory");
@@ -28,7 +29,7 @@ const Inventory = () => {
     }
 
     try {
-      await axios.post("http://localhost:5050/api/inventory/add", {
+      await axios.post(`${apiUrl}/api/inventory/add`, {
         menuitemid: itemId,
         quantity: quantity,
       });
@@ -48,7 +49,7 @@ const Inventory = () => {
     }
 
     try {
-      await axios.post("http://localhost:5050/api/inventory/update", {
+      await axios.post(`${apiUrl}/api/inventory/update`, {
         inventoryid: itemId,
         quantity: quantity,
       });
@@ -66,7 +67,7 @@ const Inventory = () => {
     }
 
     try {
-      await axios.delete("http://localhost:5050/api/inventory/delete", {
+      await axios.delete(`${apiUrl}/api/inventory/delete`, {
         data: { inventoryid: itemId },
       });
       alert("✅ Inventory deleted successfully!");

@@ -5,7 +5,8 @@ import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Toolti
 import { useNavigate } from "react-router-dom";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
-
+const apiUrl =
+  process.env.REACT_APP_API_URL || "http://localhost:5050";
 const ProductUsage = () => {
   const [salesData, setSalesData] = useState([]);
   const [dateLabels, setDateLabels] = useState([]);
@@ -25,7 +26,7 @@ const ProductUsage = () => {
     try {
       setLoading(true);
       const params = { startDate, endDate, timeRange };
-      const response = await axios.get("http://localhost:5050/api/productusage", { params });
+      const response = await axios.get(`${apiUrl}/api/productusage`, { params });
       const trendData = response.data;
       setSalesData(trendData.map((item) => item.totalUsed));
       setDateLabels(trendData.map((item) => item.itemName));

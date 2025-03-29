@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+const apiUrl =
+  process.env.REACT_APP_API_URL || "http://localhost:5050";
 
 const DrinkMenu = () => {
   const [drinkName, setDrinkName] = useState("");
@@ -11,7 +13,7 @@ const DrinkMenu = () => {
 
   const viewMenu = async () => {
     try {
-      const res = await axios.get("http://localhost:5050/api/menu");
+      const res = await axios.get(`${apiUrl}/api/menu`);
       setMenuList(res.data);
     } catch (err) {
       alert("❌ Failed to fetch menu.");
@@ -24,7 +26,7 @@ const DrinkMenu = () => {
       return;
     }
     try {
-      await axios.post("http://localhost:5050/api/menu/add", {
+      await axios.post(`${apiUrl}/api/menu/add`, {
         itemname: drinkName,
         itemtype: category,
         itemprice: parseFloat(price),
@@ -45,7 +47,7 @@ const DrinkMenu = () => {
       return;
     }
     try {
-      await axios.post("http://localhost:5050/api/menu/delete", {
+      await axios.post(`${apiUrl}/api/menu/delete`, {
         itemname: drinkName,
       });
       alert("🗑️ Drink deleted successfully!");

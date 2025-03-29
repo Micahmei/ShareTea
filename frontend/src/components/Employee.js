@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+const apiUrl =
+  process.env.REACT_APP_API_URL || "http://localhost:5050";
 const Employee = () => {
   const [id, setId] = useState("");
   const [name, setName] = useState("");
@@ -16,7 +17,7 @@ const Employee = () => {
 
   const viewEmployees = async () => {
     try {
-      const response = await axios.get("http://localhost:5050/api/employees");
+      const response = await axios.get(`${apiUrl}/api/employees`);
       setEmployeeList(response.data);
     } catch (error) {
       console.error("Failed to fetch employees:", error);
@@ -25,7 +26,7 @@ const Employee = () => {
 
   const addEmployee = async () => {
     try {
-      await axios.post("http://localhost:5050/api/employees", {
+      await axios.post(`${apiUrl}/api/employees`, {
         employeename: name,
         employeepassword: password,
         employeetype: role,
@@ -39,7 +40,7 @@ const Employee = () => {
 
   const updateEmployee = async () => {
     try {
-      await axios.put(`http://localhost:5050/api/employees/${id}`, {
+      await axios.put(`${apiUrl}/api/employees/${id}`, {
         employeename: name,
         employeepassword: password,
         employeetype: role,
@@ -53,7 +54,7 @@ const Employee = () => {
 
   const deleteEmployee = async () => {
     try {
-      await axios.delete(`http://localhost:5050/api/employees/${id}`);
+      await axios.delete(`${apiUrl}/api/employees/${id}`);
       alert("✅ Employee deleted successfully!");
       viewEmployees();
     } catch (error) {

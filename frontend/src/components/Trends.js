@@ -12,7 +12,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-
+const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:5050";
 // 注册 Chart.js 组件
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
@@ -29,7 +29,7 @@ const Trends = () => {
 
   const loadTrendData = async (trendType) => {
     try {
-      const response = await axios.get("http://localhost:5050/api/trends", {
+      const response = await axios.get(`${apiUrl}/api/trends`, {
         params: {
           trendType,
           timeRange,

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+const apiUrl =
+  process.env.REACT_APP_API_URL || "http://localhost:5050";
 const XReport = () => {
   const [startHour, setStartHour] = useState(0);
   const [endHour, setEndHour] = useState(23);
@@ -10,7 +11,7 @@ const XReport = () => {
 
   const handleGenerateReport = async () => {
     try {
-      const response = await axios.get("http://localhost:5050/api/xreport", {
+      const response = await axios.get(`${apiUrl}/api/xreport`, {
         params: {
           startHour,
           endHour,

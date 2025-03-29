@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+const apiUrl =
+  process.env.REACT_APP_API_URL || "http://localhost:5050";
 const Cart = () => {
   const [cart, setCart] = useState([]);
   const navigate = useNavigate();
@@ -45,7 +46,7 @@ const Cart = () => {
     console.log("📤 Submitting payload to backend:", payload);
 
     try {
-      const res = await axios.post("http://localhost:5050/api/orders", payload);
+      const res = await axios.post(`${apiUrl}/api/orders`, payload);
       console.log("✅ Server response:", res.data);
       if (res.data.success) {
         const total = items.reduce((sum, i) => sum + i.price, 0);

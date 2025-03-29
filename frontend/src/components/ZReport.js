@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+const apiUrl =
+  process.env.REACT_APP_API_URL || "http://localhost:5050";
 const ZReport = () => {
   const [startHour, setStartHour] = useState(0);
   const [endHour, setEndHour] = useState(23);
@@ -18,7 +19,7 @@ const ZReport = () => {
 
     setLoading(true);
     try {
-      const response = await axios.get(`/api/zreport?startHour=${startHour}&endHour=${endHour}`);
+      const response = await axios.get(`${apiUrl}/api/zreport?startHour=${startHour}&endHour=${endHour}`);
       setReportData(response.data);
       prepareCSVData(response.data);
     } catch (error) {

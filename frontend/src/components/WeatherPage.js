@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
+const apiUrl =
+  process.env.REACT_APP_API_URL || "http://localhost:5050";
 function WeatherPage() {
   const [city, setCity] = useState('');
   const [weather, setWeather] = useState(null);
@@ -8,7 +9,7 @@ function WeatherPage() {
 
   const fetchWeather = async () => {
     try {
-      const res = await axios.get(`http://localhost:5050/api/weather/${city}`);
+      const res = await axios.get(`${apiUrl}/api/weather/${city}`);
       setWeather(res.data);
       setError('');
     } catch (err) {

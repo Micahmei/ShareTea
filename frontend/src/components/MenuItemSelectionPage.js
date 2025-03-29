@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-
+const apiUrl =
+  process.env.REACT_APP_API_URL || "http://localhost:5050";
 const MenuItemSelectionPage = () => {
   const { category } = useParams();
   const [items, setItems] = useState([]);
@@ -11,7 +12,7 @@ const MenuItemSelectionPage = () => {
   useEffect(() => {
     const fetchItems = async () => {
       try {
-        const res = await axios.get("http://localhost:5050/api/menu");
+        const res = await axios.get(`${apiUrl}/api/menu`);
         setItems(
           res.data.filter((item) =>
             item.itemname.toLowerCase().includes(category.toLowerCase())

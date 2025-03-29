@@ -3,7 +3,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
-
+const apiUrl =
+  process.env.REACT_APP_API_URL || "http://localhost:5050";
 const Login = ({ onLogin }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -13,7 +14,7 @@ const Login = ({ onLogin }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:5050/api/login", {
+      const res = await axios.post(`${apiUrl}/api/login`, {
         username,
         password,
       });
@@ -27,7 +28,7 @@ const Login = ({ onLogin }) => {
 
   const handleGoogleLogin = async (credentialResponse) => {
     try {
-      const res = await axios.post("http://localhost:5050/api/google-login", {
+      const res = await axios.post(`${apiUrl}/api/google-login`, {
         token: credentialResponse.credential,
       });
       if (res.data.success) {

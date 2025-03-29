@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-
+const apiUrl =
+  process.env.REACT_APP_API_URL || "http://localhost:5050";
 const OrdersPage = () => {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
     axios
-      .get("http://localhost:5050/api/orders")
+      .get(`${apiUrl}/api/orders`)
       .then((res) => setOrders(res.data))
       .catch((err) => console.error("Error loading orders:", err));
   }, []);
