@@ -22,12 +22,12 @@ const authRoutes = require("./routes/authRoutes");
 app.use("/api/auth", authRoutes);
 
 // 提供静态文件
-app.use(express.static(path.join(__dirname, 'build')));
+//app.use(express.static(path.join(__dirname, 'build')));
 
 // 对于所有未知的路由，返回前端的 index.html
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
+//app.get('*', (req, res) => {
+ // res.sendFile(path.join(__dirname, 'build', 'index.html'));
+//});
 
 
 
