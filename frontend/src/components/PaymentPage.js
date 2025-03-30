@@ -1,3 +1,4 @@
+// src/components/PaymentPage.js
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -5,14 +6,15 @@ const PaymentPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const orderTotal = location.state?.total || 0;
+  const user = location.state?.user || {};
 
   const handleCash = () => {
-    navigate("/payment/cash", { state: { total: orderTotal } });
+    navigate("/payment/cash", { state: { total: orderTotal, user } });
   };
 
   const handleCard = () => {
     alert("💳 Payment successful via Card!");
-    navigate("/thankyou", { state: { total: orderTotal } });
+    navigate("/thankyou", { state: { total: orderTotal, user } });
   };
 
   return (
